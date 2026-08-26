@@ -549,7 +549,9 @@ footer{
 
         <div class="form-container">
 
-            <form id="projectForm">
+           <form
+                 action="https://formspree.io/f/xyegroje"
+                 method="POST" id="projectForm">
 
                 <div class="form-row">
 
@@ -559,6 +561,7 @@ footer{
 
                         <input
                             type="text"
+                            name="name"
                             placeholder="Enter your name"
                             required
                         >
@@ -571,6 +574,7 @@ footer{
 
                         <input
                             type="email"
+                            name="email"
                             placeholder="your@email.com"
                             required
                         >
@@ -583,7 +587,7 @@ footer{
 
                     <label>Project Type</label>
 
-                    <select required>
+                    <select name="project_type" required>
 
                         <option value="">
                             Select a service
@@ -607,6 +611,7 @@ footer{
                     <label>Project Details</label>
 
                     <textarea
+                        name="project_details"
                         placeholder="Tell me about your project, references, requirements, deadline, etc."
                         required
                     ></textarea>
@@ -669,32 +674,13 @@ window.addEventListener("load",function(){
 
 document
     .getElementById("projectForm")
-    .addEventListener("submit",function(event){
+    .addEventListener("submit", function(){
 
-        event.preventDefault();
+        const button = document.getElementById("submitBtn");
 
-        const button =
-            document.getElementById("submitBtn");
+        button.innerHTML = "Sending Request...";
 
-        button.innerHTML =
-            "Project Request Sent ✓";
-
-        button.style.background =
-            "linear-gradient(110deg,#22c55e,#16a34a)";
-
-        setTimeout(function(){
-
-            document
-                .getElementById("projectForm")
-                .reset();
-
-            button.innerHTML =
-                'Send Project Request <span>↗</span>';
-
-            button.style.background = "";
-
-        },3000);
-
+        button.disabled = true;
     });
 
 </script>
