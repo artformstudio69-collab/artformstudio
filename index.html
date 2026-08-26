@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ArtForm Studio — Vector Art Portfolio</title>
+
+<style>
+
+:root{
+    --bg:#090a0f;
+    --surface:#11131b;
+    --text:#f5f5f7;
+    --muted:#9da3b5;
+    --accent:#8b5cf6;
+    --accent2:#ec4899;
+    --border:rgba(255,255,255,.09);
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Inter,"Segoe UI",Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    overflow-x:hidden;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button{
+    font:inherit;
+}
+
+/* LOADER */
+
+.loader{
+    position:fixed;
+    inset:0;
+    background:#08090d;
+    z-index:9999;
+    display:grid;
+    place-items:center;
+    transition:opacity .7s,visibility .7s;
+}
+
+.loader.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loader-inner{
+    text-align:center;
+}
+
+.logo-mark{
+    width:62px;
+    height:62px;
+    border:2px solid var(--accent);
+    border-radius:18px;
+    margin:auto auto 18px;
+    display:grid;
+    place-items:center;
+    font-weight:800;
+    font-size:25px;
+    box-shadow:0 0 40px #8b5cf655;
+    animation:pulse 1.7s infinite;
+}
+
+.loader h1{
+    font-size:28px;
+    letter-spacing:2px;
+}
+
+.loader p{
+    color:var(--muted);
+    font-size:12px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    margin-top:4px;
+}
+
+.loader-bar{
+    width:180px;
+    height:3px;
+    background:#20232e;
+    margin:24px auto 0;
+    overflow:hidden;
+    border-radius:9px;
+}
+
+.loader-bar span{
+    display:block;
+    height:100%;
+    width:40%;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    animation:load 1.2s infinite;
+}
+
+@keyframes load{
+    to{
+        transform:translateX(450%);
+    }
+}
+
+@keyframes pulse{
+    50%{
+        transform:scale(1.07);
+    }
+}
+
+/* NAVIGATION */
+
+.nav{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:100;
+    background:rgba(9,10,15,.72);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);
+}
+
+.nav-inner{
+    max-width:1180px;
+    margin:auto;
+    padding:17px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.brand{
+    font-size:20px;
+    font-weight:800;
+}
+
+.brand span{
+    color:var(--accent);
+}
+
+.nav-links{
+    display:flex;
+    gap:26px;
+}
+
+.nav-links a{
+    color:#b9bdc9;
+    font-size:14px;
+    transition:.25s;
+}
+
+.nav-links a:hover,
+.nav-links a.active{
+    color:white;
+}
+
+.menu{
+    display:none;
+    background:none;
+    border:0;
+    color:white;
+    font-size:25px;
+    cursor:pointer;
+}
+
+/* HERO */
+
+.hero{
+    min-height:100vh;
+    display:grid;
+    place-items:center;
+    padding:120px 24px 80px;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero:before,
+.hero:after{
+    content:"";
+    position:absolute;
+    width:420px;
+    height:420px;
+    border-radius:50%;
+    filter:blur(100px);
+    opacity:.17;
+    pointer-events:none;
+}
+
+.hero:before{
+    background:var(--accent);
+    left:-160px;
+    top:15%;
+}
+
+.hero:after{
+    background:var(--accent2);
+    right:-160px;
+    bottom:5%;
+}
+
+.hero-content{
+    max-width:1000px;
+    text-align:center;
+    position:relative;
+    z-index:1;
+}
+
+.badge{
+    display:inline-flex;
+    padding:8px 14px;
+    border:1px solid var(--border);
+    border-radius:50px;
+    color:#c9c2ff;
+    background:#ffffff06;
+    font-size:12px;
+    margin-bottom:24px;
+}
+
+.hero h2{
+    font-size:clamp(48px,8vw,94px);
+    line-height:.98;
+    letter-spacing:-4px;
+}
+
+.gradient{
+    background:linear-gradient(110deg,#fff,#bfa8ff 45%,#f58fc8);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    max-width:650px;
+    margin:26px auto;
+    color:var(--muted);
+    font-size:17px;
+}
+
+.cta{
+    display:inline-flex;
+    gap:10px;
+    align-items:center;
+    background:linear-gradient(110deg,var(--accent),var(--accent2));
+    padding:13px 21px;
+    border-radius:12px;
+    font-weight:700;
+    box-shadow:0 14px 35px #8b5cf633;
+    transition:.3s;
+}
+
+.cta:hover{
+    transform:translateY(-3px);
+    box-shadow:0 18px 45px #8b5cf655;
+}
+
+.scroll{
+    margin-top:55px;
+    color:#686d7b;
+    font-size:11px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+}
+
+/* GENERAL */
+
+section{
+    padding:100px 24px;
+}
+
+.container{
+    max-width:1180px;
+    margin:auto;
+}
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    margin-bottom:35px;
+    gap:20px;
+}
+
+.eyebrow{
+    color:#a78bfa;
+    text-transform:uppercase;
+    letter-spacing:3px;
+    font-size:11px;
+    font-weight:700;
+}
+
+h3{
+    font-size:42px;
+    letter-spacing:-1.5px;
+}
+
+.section-head p{
+    color:var(--muted);
+    max-width:480px;
+}
+
+/* FILTERS */
+
+.filters{
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+    margin-bottom:30px;
+}
+
+.filter{
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:#aeb3c2;
+    padding:9px 14px;
+    border-radius:9px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.filter:hover,
+.filter.active{
+    background:#8b5cf622;
+    border-color:#8b5cf699;
+    color:white;
+}
+
+/* PORTFOLIO */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    overflow:hidden;
+    position:relative;
+    cursor:pointer;
+    transition:transform .35s,box-shadow .35s,border-color .35s;
+}
+
+.card:hover{
+    transform:translateY(-7px);
+    border-color:#8b5cf655;
+    box-shadow:0 22px 55px #0007;
+}
+
+.card-media{
+    aspect-ratio:4/3;
+    background:linear-gradient(135deg,#202331,#11131a);
+    position:relative;
+    overflow:hidden;
+}
+
+.card-media img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .55s,filter .35s;
+}
+
+.card:hover img{
+    transform:scale(1.07);
+    filter:brightness(.48);
+}
+
+.overlay{
+    position:absolute;
+    inset:0;
+    display:grid;
+    place-items:center;
+    opacity:0;
+    transition:.35s;
+}
+
+.card:hover .overlay{
+    opacity:1;
+}
+
+.view{
+    padding:11px 17px;
+    border:1px solid #ffffff55;
+    background:#ffffff16;
+    backdrop-filter:blur(10px);
+    border-radius:10px;
+    font-weight:700;
+}
+
+.card-info{
+    padding:17px;
+}
+
+.card-info h4{
+    font-size:17px;
+}
+
+.card-info p{
+    font-size:13px;
+    color:var(--muted);
+    margin-top:3px;
+}
+
+/* ABOUT */
+
+.about{
+    background:linear-gradient(180deg,transparent,#0e1017,transparent);
+}
+
+.about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:70px;
+    align-items:center;
+}
+
+.about-copy p{
+    color:var(--muted);
+    margin-top:18px;
+}
+
+.skills{
+    display:grid;
+    gap:12px;
+    margin-top:25px;
+}
+
+.skill{
+    display:flex;
+    justify-content:space-between;
+    padding:14px 16px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    border-radius:10px;
+    font-size:13px;
+}
+
+.skill b{
+    color:#c9c2ff;
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:#050609dd;
+    backdrop-filter:blur(12px);
+    z-index:500;
+    display:none;
+    place-items:center;
+    padding:25px;
+}
+
+.modal.show{
+    display:grid;
+    animation:fade .25s;
+}
+
+.modal-box{
+    max-width:950px;
+    width:100%;
+    max-height:90vh;
+    overflow:auto;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:18px;
+    position:relative;
+    animation:pop .3s;
+}
+
+.modal-img{
+    width:100%;
+    max-height:60vh;
+    object-fit:contain;
+    background:#08090d;
+    display:block;
+}
+
+.modal-content{
+    padding:25px;
+}
+
+.modal-content p{
+    color:var(--muted);
+    margin-top:8px;
+}
+
+.close{
+    position:absolute;
+    right:14px;
+    top:12px;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:1px solid #ffffff22;
+    background:#090a0dcc;
+    color:white;
+    cursor:pointer;
+    font-size:20px;
+    z-index:2;
+}
+
+@keyframes fade{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+
+@keyframes pop{
+    from{
+        transform:scale(.95);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+/* REVEAL */
+
+.reveal{
+    opacity:0;
+    transform:translateY(25px);
+    transition:opacity .7s,transform .7s;
+}
+
+.reveal.visible{
+    opacity:1;
+    transform:none;
+}
+
+/* FOOTER */
+
+footer{
+    border-top:1px solid var(--border);
+    padding:28px 24px;
+    color:#686d7b;
+    font-size:12px;
+    text-align:center;
+}
+
+/* TABLET */
+
+@media(max-width:800px){
+
+    .nav-links{
+        display:none;
+        position:absolute;
+        top:64px;
+        left:0;
+        right:0;
+        background:#0c0d13;
+        padding:20px 24px;
+        flex-direction:column;
+        gap:16px;
+        border-bottom:1px solid var(--border);
+    }
+
+    .nav-links.open{
+        display:flex;
+    }
+
+    .menu{
+        display:block;
+    }
+
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .about-grid{
+        grid-template-columns:1fr;
+        gap:35px;
+    }
+}
+
+/* MOBILE */
+
+@media(max-width:520px){
+
+    section{
+        padding:75px 18px;
+    }
+
+    .hero h2{
+        letter-spacing:-2px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    h3{
+        font-size:34px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOADER -->
+
+<div class="loader" id="loader">
+
+    <div class="loader-inner">
+
+        <div class="logo-mark">AF</div>
+
+        <h1>ArtForm Studio</h1>
+
+        <p>Vector Art · Character Design</p>
+
+        <div class="loader-bar">
+            <span></span>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- NAVIGATION -->
+
+<header class="nav">
+
+    <div class="nav-inner">
+
+        <a href="#home" class="brand">
+            ArtForm <span>Studio</span>
+        </a>
+
+        <button class="menu" id="menu">☰</button>
+
+        <nav class="nav-links" id="navLinks">
+
+            <a href="#home" class="active">Home</a>
+
+            <a href="#portfolio">Portfolio</a>
+
+            <a href="#about">About</a>
+
+            <a href="contact.html">Contact</a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+<main>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content reveal">
+
+        <div class="badge">
+            ✦ VECTOR ART & CHARACTER DESIGN STUDIO
+        </div>
+
+        <h2>
+            Turning ideas into
+            <span class="gradient">visual art.</span>
+        </h2>
+
+        <p>
+            Professional vector illustrations,
+            character artwork, reference sheets,
+            realistic 2D portraits, tracing and
+            sticker designs crafted with precision.
+        </p>
+
+        <a href="#portfolio" class="cta">
+            Explore Portfolio <span>↗</span>
+        </a>
+
+        <div class="scroll">
+            Scroll to discover ↓
+        </div>
+
+    </div>
+
+</section>
+
+<!-- PORTFOLIO -->
+
+<section id="portfolio">
+
+    <div class="container">
+
+        <div class="section-head reveal">
+
+            <div>
+
+                <div class="eyebrow">
+                    Selected Work
+                </div>
+
+                <h3>Portfolio</h3>
+
+            </div>
+
+            <p>
+                Explore different styles and
+                services. Click any artwork to
+                view the project details.
+            </p>
+
+        </div>
+
+        <div class="filters reveal" id="filters"></div>
+
+        <div class="grid" id="portfolioGrid"></div>
+
+    </div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section class="about" id="about">
+
+    <div class="container about-grid">
+
+        <div class="about-copy reveal">
+
+            <div class="eyebrow">
+                About the Studio
+            </div>
+
+            <h3>
+                Clean lines.<br>
+                Strong characters.
+            </h3>
+
+            <p>
+                ArtForm Studio focuses on
+                expressive vector artwork and
+                polished character design.
+                Every piece is built around clean
+                shapes, strong silhouettes,
+                thoughtful details and a
+                professional finish.
+            </p>
+
+            <p>
+                From a simple image trace to a
+                complete character reference sheet,
+                the goal is to turn an idea or
+                reference into artwork that feels
+                clear, consistent and ready to use.
+            </p>
+
+        </div>
+
+        <div class="skills reveal">
+
+            <div class="skill">
+                <span>Vector Illustration</span>
+                <b>Expert</b>
+            </div>
+
+            <div class="skill">
+                <span>Character Design</span>
+                <b>Expert</b>
+            </div>
+
+            <div class="skill">
+                <span>Reference Sheets</span>
+                <b>Advanced</b>
+            </div>
+
+            <div class="skill">
+                <span>2D / 2D Realistic</span>
+                <b>Advanced</b>
+            </div>
+
+            <div class="skill">
+                <span>Tracing & Stickers</span>
+                <b>Expert</b>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+<!-- PROJECT MODAL -->
+
+<div class="modal" id="modal">
+
+    <div class="modal-box">
+
+        <button class="close" id="close">×</button>
+
+        <img class="modal-img" id="modalImg" alt="">
+
+        <div class="modal-content">
+
+            <div class="eyebrow" id="modalCategory"></div>
+
+            <h3 id="modalTitle"></h3>
+
+            <p id="modalDescription"></p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    © 2026 ArtForm Studio · Vector Art & Character Design
+</footer>
+
+<script>
+
+const projects = [
+
+    {
+        title:"Character — Half Body",
+        category:"Half Body",
+        description:"A polished half-body vector character illustration focused on expression, silhouette and clean line work.",
+        image:"https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1200&q=85"
+    },
+
+    {
+        title:"Character — Full Body",
+        category:"Full Body",
+        description:"Full-body character artwork designed with a strong silhouette and detailed clothing and proportions.",
+        image:"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=85"
+    },
+
+    {
+        title:"Character Reference Sheet",
+        category:"Reference Sheet",
+        description:"A complete character presentation showing multiple views, expressions and design details.",
+        image:"https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=1200&q=85"
+    },
+
+    {
+        title:"Stylized 2D Portrait",
+        category:"2D",
+        description:"A stylized 2D portrait using simplified shapes, confident edges and graphic color blocking.",
+        image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1200&q=85"
+    },
+
+    {
+        title:"2D Realistic Portrait",
+        category:"2D Realistic",
+        description:"A detailed 2D portrait with realistic proportions, subtle shading and refined rendering.",
+        image:"https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=85"
+    },
+
+    {
+        title:"Sticker Tracing Pack",
+        category:"Stickers Tracing",
+        description:"Clean traced sticker artwork prepared with bold outlines and shapes suitable for sticker production.",
+        image:"https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=85"
+    },
+
+    {
+        title:"Image Tracing",
+        category:"Image Tracing",
+        description:"A reference image transformed into crisp vector-style artwork with controlled shapes and smooth edges.",
+        image:"https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=1200&q=85"
+    },
+
+    {
+        title:"Full Character Study",
+        category:"Full Body",
+        description:"A detailed full-body character study created for portfolio and production reference.",
+        image:"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=85"
+    },
+
+    {
+        title:"Expressive Half Body",
+        category:"Half Body",
+        description:"An expressive character composition combining strong pose, facial expression and clean vector construction.",
+        image:"https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?auto=format&fit=crop&w=1200&q=85"
+    }
+
+];
+
+const categories = [
+    "All",
+    ...new Set(projects.map(project => project.category))
+];
+
+const filters = document.getElementById("filters");
+const grid = document.getElementById("portfolioGrid");
+
+let current = "All";
+
+categories.forEach(category => {
+
+    const button = document.createElement("button");
+
+    button.className =
+        "filter" +
+        (category === "All" ? " active" : "");
+
+    button.textContent = category;
+
+    button.onclick = () => {
+
+        current = category;
+
+        document.querySelectorAll(".filter")
+            .forEach(button => {
+                button.classList.remove("active");
+            });
+
+        button.classList.add("active");
+
+        renderProjects();
+
+    };
+
+    filters.appendChild(button);
+
+});
+
+function renderProjects(){
+
+    grid.innerHTML = "";
+
+    const filteredProjects = projects.filter(project =>
+        current === "All" ||
+        project.category === current
+    );
+
+    filteredProjects.forEach((project,index) => {
+
+        const card = document.createElement("article");
+
+        card.className = "card reveal";
+
+        card.innerHTML = `
+
+            <div class="card-media">
+
+                <img
+                    src="${project.image}"
+                    alt="${project.title}"
+                    loading="lazy"
+                >
+
+                <div class="overlay">
+
+                    <span class="view">
+                        View Project ↗
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="card-info">
+
+                <h4>${project.title}</h4>
+
+                <p>${project.category}</p>
+
+            </div>
+        `;
+
+        card.onclick = () => openModal(project);
+
+        grid.appendChild(card);
+
+        setTimeout(() => {
+            card.classList.add("visible");
+        }, index * 45);
+
+    });
+
+}
+
+renderProjects();
+
+/* MODAL */
+
+const modal = document.getElementById("modal");
+const modalImage = document.getElementById("modalImg");
+const modalCategory = document.getElementById("modalCategory");
+const modalTitle = document.getElementById("modalTitle");
+const modalDescription = document.getElementById("modalDescription");
+
+function openModal(project){
+
+    modalImage.src = project.image;
+    modalImage.alt = project.title;
+    modalCategory.textContent = project.category;
+    modalTitle.textContent = project.title;
+    modalDescription.textContent = project.description;
+
+    modal.classList.add("show");
+
+    document.body.style.overflow = "hidden";
+}
+
+function closeModal(){
+
+    modal.classList.remove("show");
+
+    document.body.style.overflow = "";
+}
+
+document.getElementById("close").onclick = closeModal;
+
+modal.onclick = event => {
+
+    if(event.target === modal){
+        closeModal();
+    }
+
+};
+
+document.addEventListener("keydown",event => {
+
+    if(event.key === "Escape"){
+        closeModal();
+    }
+
+});
+
+/* LOADER */
+
+window.addEventListener("load",() => {
+
+    setTimeout(() => {
+
+        document
+            .getElementById("loader")
+            .classList.add("hide");
+
+    },900);
+
+});
+
+/* SCROLL REVEAL */
+
+const observer = new IntersectionObserver(
+    entries => {
+
+        entries.forEach(entry => {
+
+            if(entry.isIntersecting){
+
+                entry.target.classList.add("visible");
+
+            }
+
+        });
+
+    },
+    {threshold:.12}
+);
+
+document.querySelectorAll(".reveal")
+    .forEach(element => {
+        observer.observe(element);
+    });
+
+/* MOBILE MENU */
+
+const menu = document.getElementById("menu");
+const navLinks = document.getElementById("navLinks");
+
+menu.onclick = () => {
+    navLinks.classList.toggle("open");
+};
+
+navLinks.querySelectorAll("a")
+    .forEach(link => {
+
+        link.onclick = () => {
+            navLinks.classList.remove("open");
+        };
+
+    });
+
+</script>
+
+</body>
+</html>
